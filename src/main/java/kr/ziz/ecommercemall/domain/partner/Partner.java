@@ -4,12 +4,14 @@ import jakarta.persistence.*;
 import kr.ziz.ecommercemall.domain.common.Address;
 import kr.ziz.ecommercemall.domain.common.PhoneNumber;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.util.StringUtils;
 
 import java.util.regex.Pattern;
 
 @Entity
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Partner {
 
@@ -30,10 +32,10 @@ public class Partner {
   @Embedded
   private PhoneNumber biz_tel_no;
 
-  private final String UPPERCASE_REG_EXP = "^(?=.*[A-Z])";
-  private final String LOWERCASE_REG_EXP = "^(?=.*[a-z])";
-  private final String NUMBER_REG_EXP = "^(?=.*\\d)";
-  private final String SPECIAL_SYMBOLS_REG_EXP = "(?=.*[!@#$%^&*()])";
+  private final String UPPERCASE_REG_EXP = "^((.*)[A-Z](.*))";
+  private final String LOWERCASE_REG_EXP = "^((.*)[a-z](.*))";
+  private final String NUMBER_REG_EXP = "^((.*)\\d(.*))";
+  private final String SPECIAL_SYMBOLS_REG_EXP = "((.*)[!@#$%^&*()](.*))";
 
   public Partner(String partnerId, String partnerNm, String partnerPw, String email, String contractYn, String bizNo, Address address, PhoneNumber biz_tel_no) {
     verifyPassword(partnerPw);
@@ -51,7 +53,7 @@ public class Partner {
    * 영어 대문자, 영어 소문자, 숫자, 특수문자 중 3종류 이상으로 12자리 이상의 문자열
    */
   private void verifyPassword(String password) {
-    if (!StringUtils.hasLength(password)) throw new RuntimeException("길이 12자 이상");
+    if (StringUtils.hasLength(password) && password.length() < 12) throw new RuntimeException("길이 12자 이상");
 
     int appliedRegExpCnt = 0;
     if(Pattern.matches(UPPERCASE_REG_EXP, password)) appliedRegExpCnt = appliedRegExpCnt + 1;
