@@ -1,7 +1,6 @@
 package kr.ziz.ecommercemall.domain.partner;
 
 import kr.ziz.ecommercemall.domain.partner.fixture.PartnerFixture;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
