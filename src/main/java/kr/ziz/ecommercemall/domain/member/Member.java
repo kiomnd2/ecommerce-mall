@@ -28,7 +28,8 @@ public class Member {
     public Member(String memberId, String memberNm, String memberPw
             , String phoneNo, String email, String authKey, Boolean authYn) {
         // valid
-
+        // TODO 패스워드 암호화
+        // authKey 생성, authYn =N
 
         this.memberId = memberId;
         this.memberNm = memberNm;
@@ -36,6 +37,7 @@ public class Member {
         this.phoneNo = phoneNo;
         this.email = email;
         this.authKey = authKey;
-        this.authYn = authYn;
+        this.authYn = false;
     }
+
 }
