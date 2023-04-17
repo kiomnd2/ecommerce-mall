@@ -1,4 +1,4 @@
-package kr.ziz.ecommercemall.domain.partner;
+package kr.ziz.ecommercemall.domain.manager;
 
 import jakarta.persistence.*;
 import kr.ziz.ecommercemall.domain.common.Address;
@@ -12,15 +12,15 @@ import java.util.regex.Pattern;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Partner {
+public class Manager {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  private String partnerId;
-  private String partnerNm;
-  private String partnerPw;
+  private String managerId;
+  private String managerNm;
+  private String managerPw;
   private String email;
   private String contractYn;
   private String bizNo;
@@ -36,11 +36,11 @@ public class Partner {
   private final String NUMBER_REG_EXP = "^((.*)\\d(.*))";
   private final String SPECIAL_SYMBOLS_REG_EXP = "((.*)[!@#$%^&*()](.*))";
 
-  public Partner(String partnerId, String partnerNm, String partnerPw, String email, String contractYn, String bizNo, Address address, String biz_tel_no) {
-    verifyPassword(partnerPw);
-    this.partnerId = partnerId;
-    this.partnerNm = partnerNm;
-    this.partnerPw = partnerPw;
+  public Manager(String managerId, String managerNm, String managerPw, String email, String contractYn, String bizNo, Address address, String biz_tel_no) {
+    verifyPassword(managerPw);
+    this.managerId = managerId;
+    this.managerNm = managerNm;
+    this.managerPw = managerPw;
     this.email = email;
     this.contractYn = contractYn;
     this.bizNo = bizNo;
@@ -62,6 +62,6 @@ public class Partner {
 
     if( appliedRegExpCnt < 3 ) throw new RuntimeException("영어 대문자, 영어 소문자, 숫자, 특수문자 중 3종류 이상");
 
-    this.partnerPw = password;
+    this.managerPw = password;
   }
 }
