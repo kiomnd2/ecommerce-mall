@@ -1,4 +1,4 @@
-package kr.ziz.ecommercemall.interfaces.partner;
+package kr.ziz.ecommercemall.interfaces.manager;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/partner")
-public class PartnerApi {
+@RequestMapping("/api/v1/manager")
+public class ManagerApi {
 
   @PostMapping("/join")
   public String join() {
