@@ -10,6 +10,11 @@ public class MemberApi {
 
     @PostMapping("/join")
     public String join() {
-        return "지장이재석";
+        return "회원";
+    }
+
+    @PostMapping("/logged-in")
+    public String login() {
+        return "로그인";
     }
 }
