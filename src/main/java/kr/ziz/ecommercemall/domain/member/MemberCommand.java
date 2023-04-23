@@ -26,4 +26,14 @@ public class MemberCommand {
                     .build();
         }
     }
+
+    @Getter
+    @Builder
+    @ToString
+    public static class LoginMember {
+        private final String memberId;
+        private final String memberPw;
+    }
+
+
 }
