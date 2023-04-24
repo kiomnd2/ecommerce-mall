@@ -1,7 +1,9 @@
 package kr.ziz.ecommercemall.domain.manager;
 
-import jakarta.persistence.*;
-import kr.ziz.ecommercemall.domain.common.Address;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,30 +24,23 @@ public class Manager {
   private String managerNm;
   private String managerPw;
   private String email;
-  private String contractYn;
-  private String bizNo;
 
-  @Embedded
-  private Address address;
-
-  @Embedded
-  private String biz_tel_no;
+  private String tel_no;
 
   private final String UPPERCASE_REG_EXP = "^((.*)[A-Z](.*))";
   private final String LOWERCASE_REG_EXP = "^((.*)[a-z](.*))";
   private final String NUMBER_REG_EXP = "^((.*)\\d(.*))";
   private final String SPECIAL_SYMBOLS_REG_EXP = "((.*)[!@#$%^&*()](.*))";
+  private final String EMAIL_REG_EXP = "ott-mall.com";
 
-  public Manager(String managerId, String managerNm, String managerPw, String email, String contractYn, String bizNo, Address address, String biz_tel_no) {
+  public Manager(String managerId, String managerNm, String managerPw, String email, String tel_no) {
     verifyPassword(managerPw);
+    verifyEmail(email);
     this.managerId = managerId;
     this.managerNm = managerNm;
     this.managerPw = managerPw;
     this.email = email;
-    this.contractYn = contractYn;
-    this.bizNo = bizNo;
-    this.address = address;
-    this.biz_tel_no = biz_tel_no;
+    this.tel_no = tel_no;
   }
 
   /**
@@ -61,7 +56,9 @@ public class Manager {
     if(Pattern.matches(SPECIAL_SYMBOLS_REG_EXP, password)) appliedRegExpCnt++;
 
     if( appliedRegExpCnt < 3 ) throw new RuntimeException("영어 대문자, 영어 소문자, 숫자, 특수문자 중 3종류 이상");
+  }
 
-    this.managerPw = password;
+  private void verifyEmail(String email) {
+    if(!Pattern.matches(EMAIL_REG_EXP, email)) throw new RuntimeException("영어 대문자, 영어 소문자, 숫자, 특수문자 중 3종류 이상");
   }
 }
