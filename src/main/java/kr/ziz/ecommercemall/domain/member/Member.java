@@ -21,12 +21,14 @@ public class Member {
     private String memberPw;
     private String phoneNo;
     private String email;
-    private String authKey;
-    private Boolean authYn;
+
+    @Enumerated(EnumType.STRING)
+    private MemberStatus status;
 
     @Builder
     public Member(String memberId, String memberNm, String memberPw
-            , String phoneNo, String email, String authKey, Boolean authYn) {
+            , String phoneNo, String email) {
+
         // valid
         // TODO 패스워드 암호화
         // authKey 생성, authYn =N
@@ -36,8 +38,8 @@ public class Member {
         this.memberPw = memberPw;
         this.phoneNo = phoneNo;
         this.email = email;
-        this.authKey = authKey;
-        this.authYn = false;
+        this.status = MemberStatus.NOT_AUTHED; // 미인증 상태
+
     }
 
 }

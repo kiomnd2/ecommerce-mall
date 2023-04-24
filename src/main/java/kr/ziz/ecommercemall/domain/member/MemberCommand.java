@@ -26,4 +26,5 @@ public class MemberCommand {
                     .build();
         }
     }
+
 }
