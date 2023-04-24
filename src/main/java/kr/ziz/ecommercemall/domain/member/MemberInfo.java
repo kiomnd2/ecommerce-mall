@@ -12,19 +12,16 @@ public class MemberInfo {
     private final String memberPw;
     private final String phoneNo;
     private final String email;
-    private final String authKey;
-    private final Boolean authYn;
+    private final MemberStatus status;
 
     @Builder
-    public MemberInfo(Long id, String memberId, String memberNm, String memberPw,
-                      String phoneNo, String email, String authKey, Boolean authYn) {
-        this.id = id;
-        this.memberId = memberId;
-        this.memberNm = memberNm;
-        this.memberPw = memberPw;
-        this.phoneNo = phoneNo;
-        this.email = email;
-        this.authKey = authKey;
-        this.authYn = authYn;
+    public MemberInfo(Member member) {
+        this.id = member.getId();
+        this.memberId = member.getMemberId();
+        this.memberNm = member.getMemberNm();
+        this.memberPw = member.getMemberPw();
+        this.phoneNo = member.getPhoneNo();
+        this.email = member.getEmail();
+        this.status = member.getStatus();
     }
 }
