@@ -28,6 +28,7 @@ public class Member {
     @Builder
     public Member(String memberId, String memberNm, String memberPw
             , String phoneNo, String email) {
+
         // valid
         // TODO 패스워드 암호화
         // authKey 생성, authYn =N
@@ -38,6 +39,7 @@ public class Member {
         this.phoneNo = phoneNo;
         this.email = email;
         this.status = MemberStatus.NOT_AUTHED; // 미인증 상태
+
     }
 
 }
