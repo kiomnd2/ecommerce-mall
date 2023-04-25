@@ -59,6 +59,6 @@ public class Manager {
   }
 
   private void verifyEmail(String email) {
-    if(!Pattern.matches(EMAIL_REG_EXP, email)) throw new RuntimeException("영어 대문자, 영어 소문자, 숫자, 특수문자 중 3종류 이상");
+    if(!Pattern.matches(EMAIL_REG_EXP, email)) throw new RuntimeException("사내 메일만 가능");
   }
 }
