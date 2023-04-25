@@ -25,7 +25,7 @@ public class Manager {
   private String managerPw;
   private String email;
 
-  private String tel_no;
+  private String phoneNo;
 
   private final String UPPERCASE_REG_EXP = "^((.*)[A-Z](.*))";
   private final String LOWERCASE_REG_EXP = "^((.*)[a-z](.*))";
@@ -33,14 +33,14 @@ public class Manager {
   private final String SPECIAL_SYMBOLS_REG_EXP = "((.*)[!@#$%^&*()](.*))";
   private final String EMAIL_REG_EXP = "ott-mall.com";
 
-  public Manager(String managerId, String managerNm, String managerPw, String email, String tel_no) {
+  public Manager(String managerId, String managerNm, String managerPw, String email, String phoneNo) {
     verifyPassword(managerPw);
     verifyEmail(email);
     this.managerId = managerId;
     this.managerNm = managerNm;
     this.managerPw = managerPw;
     this.email = email;
-    this.tel_no = tel_no;
+    this.phoneNo = phoneNo;
   }
 
   /**
