@@ -1,8 +1,10 @@
 package kr.ziz.ecommercemall.domain.manager;
 
+import java.util.Optional;
+
 public interface ManagerReader {
 
-  Manager getManager(Long id);
+  Optional<Manager> getManager(Long id);
 
-  Manager getManager(String managerId);
+  Optional<Manager> getManager(String managerId);
 }

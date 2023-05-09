@@ -14,4 +14,14 @@ public class ManagerCommand {
   private String managerPw;
   private String phoneNo;
   private String email;
+
+  public Manager toEntity() {
+    return Manager.builder()
+            .managerId(managerId)
+            .managerNm(managerNm)
+            .managerPw(managerPw)
+            .phoneNo(phoneNo)
+            .email(email)
+            .build();
+  }
 }

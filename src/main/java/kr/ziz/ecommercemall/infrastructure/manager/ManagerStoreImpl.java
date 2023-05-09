@@ -1,7 +1,6 @@
 package kr.ziz.ecommercemall.infrastructure.manager;
 
-import kr.ziz.ecommercemall.domain.manager.Manager;
-import kr.ziz.ecommercemall.domain.manager.ManagerStore;
+import kr.ziz.ecommercemall.domain.manager.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -12,9 +11,12 @@ import org.springframework.stereotype.Component;
 public class ManagerStoreImpl implements ManagerStore {
 
   private final ManagerRepository managerRepository;
+  private final ManagerReader managerReader;
 
   @Override
-  public void store(Manager initManager) {
-    managerRepository.save(initManager);
+  public ManagerInfo store(Manager initManager) {
+    ManagerServiceHelper.checkDuplicateManagerId(managerReader, initManager.getManagerId());
+    Manager manager = managerRepository.save(initManager);
+    return new ManagerInfo(manager);
   }
 }
