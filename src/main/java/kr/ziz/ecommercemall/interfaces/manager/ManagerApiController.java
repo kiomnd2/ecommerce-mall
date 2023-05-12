@@ -1,6 +1,8 @@
 package kr.ziz.ecommercemall.interfaces.manager;
 
 import jakarta.validation.Valid;
+import kr.ziz.ecommercemall.application.manager.ManagerFacade;
+import kr.ziz.ecommercemall.domain.manager.ManagerInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,19 +11,22 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/manager")
 public class ManagerApiController {
 
+  private final ManagerFacade managerFacade;
+
+  // TODO 응답 공통 처리
   @PostMapping("/join")
-  public String managerJoin(@RequestBody @Valid ManagerDto.JoinRequest request) {
-    return "운영자 회원가입";
+  public ManagerInfo managerJoin(@RequestBody @Valid ManagerDto.JoinRequest request) {
+   return managerFacade.registerManager(request.toCommand());
   }
 
   @PostMapping("/password")
-  public String changeManagerPassword(@RequestBody @Valid ManagerDto.LoginRequest request) {
-    return "운영자 비밀번호 수정";
+  public ManagerInfo changeManagerPassword(@RequestBody @Valid ManagerDto.ChangePasswordRequest request) {
+    return managerFacade.updateManagerForPassword(request);
   }
 
   @PostMapping("/info")
-  public String changeManagerInfo(@RequestBody @Valid ManagerDto.ChangePasswordRequest request) {
-    return "운영자 정보 수장";
+  public ManagerInfo changeManagerInfo(@RequestBody @Valid ManagerDto.ChangeInfoRequest request) {
+    return managerFacade.updateManagerForInfo(request);
   }
 
   @DeleteMapping("/")
