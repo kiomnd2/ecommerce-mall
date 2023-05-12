@@ -16,6 +16,7 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String memberToken;
     private String memberId;
     private String memberNm;
     private String memberPw;
@@ -32,7 +33,8 @@ public class Member {
         // valid
         // TODO 패스워드 암호화
         // authKey 생성, authYn =N
-
+        // TODO createMemberToken
+        this.memberToken = "createMemberToken";
         this.memberId = memberId;
         this.memberNm = memberNm;
         this.memberPw = memberPw;
