@@ -16,13 +16,13 @@ public class ManagerReaderImpl implements ManagerReader {
 
   @Transactional
   @Override
-  public Optional<Manager> getManager(Long id) {
-    return Optional.empty();
+  public Optional<Manager> getManager(String managerToken) {
+    return managerRepository.findByManagerToken(managerToken);
   }
 
   @Transactional
   @Override
-  public Optional<Manager> getManager(String managerId) {
-    return managerRepository.findByManagerId(managerId);
+  public Optional<Manager> getManagerByEmail(String email) {
+    return managerRepository.findByEmail(email);
   }
 }

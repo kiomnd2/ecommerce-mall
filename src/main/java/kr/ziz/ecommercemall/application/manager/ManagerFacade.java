@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 public class ManagerFacade {
 
   private final ManagerService managerService;
-  private final ManagerReader managerReader;
 
   public ManagerInfo registerManager(ManagerCommand command) {
     return managerService.registerManager(command);
@@ -24,7 +23,7 @@ public class ManagerFacade {
     return managerService.changeInfo(request);
   }
 
-  public boolean deleteManager(ManagerDto.WithdrawalRequest request) {
-    return managerService.deleteManager(request);
+  public void deleteManager(ManagerDto.WithdrawalRequest request) {
+    managerService.deleteManager(request);
   }
 }
