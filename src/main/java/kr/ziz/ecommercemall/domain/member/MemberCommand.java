@@ -27,4 +27,20 @@ public class MemberCommand {
         }
     }
 
+    @Getter
+    @Builder
+    @ToString
+    public static class ModifyMember {
+        private final String memberNm;
+        private final String memberPw;
+        private final String phoneNo;
+
+        public Member toEntity() {
+            return Member.builder()
+                    .memberNm(memberNm)
+                    .memberPw(memberPw)
+                    .phoneNo(phoneNo)
+                    .build();
+        }
+    }
 }
