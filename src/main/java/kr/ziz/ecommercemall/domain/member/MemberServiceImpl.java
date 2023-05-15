@@ -23,6 +23,7 @@ public class MemberServiceImpl implements MemberService {
         member.changeMember(memberCommand);
         return new MemberInfo(member);
     }
+    @Transactional
 
     @Override
     public void deleteMember(String memberToken) {

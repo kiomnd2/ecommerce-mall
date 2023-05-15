@@ -30,6 +30,14 @@ public class MemberCommand {
     @Getter
     @Builder
     @ToString
+    public static class LoginMember {
+        private final String memberId;
+        private final String memberPw;
+    }
+
+    @Getter
+    @Builder
+    @ToString
     public static class ModifyMember {
         private final String memberNm;
         private final String memberPw;

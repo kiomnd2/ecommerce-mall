@@ -15,8 +15,4 @@ public class MemberStoreImpl implements MemberStore {
         return memberRepository.save(member);
     }
 
-    @Override
-    public Member modify(String memberToken, Member member) {
-        return null;
-    }
 }

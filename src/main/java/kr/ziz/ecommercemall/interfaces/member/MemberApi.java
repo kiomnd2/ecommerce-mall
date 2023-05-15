@@ -1,6 +1,8 @@
 package kr.ziz.ecommercemall.interfaces.member;
 
+import kr.ziz.ecommercemall.application.member.MemberFacade;
 import kr.ziz.ecommercemall.common.response.CommonResponse;
+import kr.ziz.ecommercemall.domain.member.MemberInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -8,14 +10,17 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/member")
 public class MemberApi {
+    private final MemberFacade memberFacade;
 
     @PostMapping("/join")
     public CommonResponse join(@RequestBody MemberDto.RequestJoin requestJoin) {
-        return CommonResponse.success("memberToken");
+        MemberInfo memberInfo = memberFacade.registerMember(MemberMapper.INSTANCE.of(requestJoin));
+        return CommonResponse.success(memberInfo);
     }
 
     @PostMapping("/logged-in")
     public CommonResponse login(@RequestBody MemberDto.RequestLogin requestLogin) {
+        memberFacade.loginMember(MemberMapper.INSTANCE.of(requestLogin));
         return CommonResponse.success("memberToken");
     }
 
