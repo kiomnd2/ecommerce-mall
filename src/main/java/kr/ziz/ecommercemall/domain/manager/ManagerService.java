@@ -10,5 +10,5 @@ public interface ManagerService {
 
   ManagerInfo changeInfo(ManagerDto.ChangeInfoRequest request);
 
-  boolean deleteManager(ManagerDto.WithdrawalRequest request);
+  void deleteManager(ManagerDto.WithdrawalRequest request);
 }

@@ -1,7 +1,12 @@
 package kr.ziz.ecommercemall.domain.manager;
 
 import jakarta.persistence.*;
-import kr.ziz.ecommercemall.common.BaseEntity;
+import kr.ziz.ecommercemall.common.exception.EmailValidationException;
+import kr.ziz.ecommercemall.common.exception.PasswordValidationException;
+import kr.ziz.ecommercemall.common.exception.RequiredValueException;
+import kr.ziz.ecommercemall.common.response.ErrorCode;
+import kr.ziz.ecommercemall.domain.BaseEntity;
+import kr.ziz.ecommercemall.common.util.TokenGenerator;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,16 +16,20 @@ import org.springframework.util.StringUtils;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 
+import static kr.ziz.ecommercemall.common.response.ErrorCode.MANAGER_EMAIL_INVALIDATION;
+
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Manager extends BaseEntity {
 
+  private static final String PREFIX_MANAGER = "MANAGER_";
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  private String managerId;
+  private String managerToken;
   private String managerNm;
   private String managerPw;
   private String email;
@@ -38,12 +47,11 @@ public class Manager extends BaseEntity {
 
   @Builder
   public Manager(String managerId, String managerNm, String managerPw, String email, String phoneNo) {
-    if (!StringUtils.hasLength(managerId)) throw new RuntimeException("managerId는 필수값입니다.");
-    if (!StringUtils.hasLength(managerNm)) throw new RuntimeException("managerNm는 필수값입니다.");
-    if (!StringUtils.hasLength(phoneNo)) throw new RuntimeException("phoneNo는 필수값입니다.");
+    if (!StringUtils.hasLength(managerNm)) throw new RequiredValueException("이름");
+    if (!StringUtils.hasLength(phoneNo)) throw new RequiredValueException("휴대폰");
     verifyPassword(managerPw);
     verifyEmail(email);
-    this.managerId = managerId;
+    this.managerToken = TokenGenerator.randomCharacterWithPrefix(PREFIX_MANAGER);
     this.managerNm = managerNm;
     this.managerPw = managerPw;
     this.email = email;
@@ -55,14 +63,14 @@ public class Manager extends BaseEntity {
    * 영어 대문자, 영어 소문자, 숫자, 특수문자 중 3종류 이상으로 12자리 이상의 문자열
    */
   private void verifyPassword(String password) {
-    if (!StringUtils.hasLength(password) && password.length() < 12) throw new RuntimeException("길이 12자 이상");
+    if (!StringUtils.hasLength(password) && password.length() < 12) throw new PasswordValidationException();
 
     int appliedRegExpCnt = 0;
     if(Pattern.matches(UPPERCASE_REG_EXP, password)) appliedRegExpCnt++;
     if(Pattern.matches(LOWERCASE_REG_EXP, password)) appliedRegExpCnt++;
     if(Pattern.matches(NUMBER_REG_EXP, password)) appliedRegExpCnt++;
     if(Pattern.matches(SPECIAL_SYMBOLS_REG_EXP, password)) appliedRegExpCnt++;
-    if( appliedRegExpCnt < 3 ) throw new RuntimeException("영어 대문자, 영어 소문자, 숫자, 특수문자 중 3종류 이상");
+    if( appliedRegExpCnt < 3 ) throw new PasswordValidationException();
   }
 
   /**
@@ -70,9 +78,9 @@ public class Manager extends BaseEntity {
    * @param email
    */
   private void verifyEmail(String email) {
-    if (!StringUtils.hasLength(email)) throw new RuntimeException("email는 필수값입니다.");
+    if (!StringUtils.hasLength(email)) throw new RequiredValueException("이메일");
     boolean anyMatch = Arrays.stream(EMAIL_REG_EXP.split(",")).anyMatch(regExp -> email.lastIndexOf(regExp) > 0);
-    if(!anyMatch) throw new RuntimeException("사내 이메일만 가능");
+    if(!anyMatch) throw new EmailValidationException(MANAGER_EMAIL_INVALIDATION);
   }
 
   public void changePassword(String password) {

@@ -14,8 +14,9 @@ public class ManagerDto {
   @ToString
   public static class JoinRequest {
 
-    @NotEmpty(message = "managerId 는 필수값입니다")
-    private String managerId;
+    @Email(message = "email 형식에 맞아야 합니다")
+    @NotEmpty(message = "email 는 필수값입니다")
+    private String email;
 
     @NotEmpty(message = "managerNm 는 필수값입니다")
     private String managerNm;
@@ -26,17 +27,12 @@ public class ManagerDto {
     @NotEmpty(message = "phoneNo 는 필수값입니다")
     private String phoneNo;
 
-    @Email(message = "email 형식에 맞아야 합니다")
-    @NotEmpty(message = "email 는 필수값입니다")
-    private String email;
-
     public ManagerCommand toCommand() {
       return ManagerCommand.builder()
-              .managerId(managerId)
+              .email(email)
               .managerNm(managerNm)
               .managerPw(managerPw)
               .phoneNo(phoneNo)
-              .email(email)
               .build();
     }
   }
@@ -45,8 +41,8 @@ public class ManagerDto {
   @Setter
   @ToString
   public static class LoginRequest {
-    @NotEmpty(message = "managerId 는 필수값입니다")
-    private String managerId;
+    @NotEmpty(message = "email 는 필수값입니다")
+    private String email;
 
     @NotEmpty(message = "managerPw 는 필수값입니다")
     private String managerPw;
@@ -56,8 +52,8 @@ public class ManagerDto {
   @Setter
   @ToString
   public static class ChangePasswordRequest {
-    @NotEmpty(message = "managerId 는 필수값입니다")
-    private String managerId;
+    @NotEmpty(message = "managerToken 는 필수값입니다")
+    private String managerToken;
 
     @NotEmpty(message = "managerPw 는 필수값입니다")
     private String managerPw;
@@ -70,8 +66,8 @@ public class ManagerDto {
   @Setter
   @ToString
   public static class ChangeInfoRequest {
-    @NotEmpty(message = "managerId 는 필수값입니다")
-    private String managerId;
+    @NotEmpty(message = "managerToken 는 필수값입니다")
+    private String managerToken;
 
     @NotEmpty(message = "managerPw 는 필수값입니다")
     private String managerPw;
@@ -81,20 +77,23 @@ public class ManagerDto {
 
     @NotEmpty(message = "phoneNo 는 필수값입니다")
     private String phoneNo;
-
-    @Email(message = "email 형식에 맞아야 합니다")
-    @NotEmpty(message = "email 는 필수값입니다")
-    private String email;
   }
 
   @Getter
   @Setter
   @ToString
   public static class WithdrawalRequest {
-    @NotEmpty(message = "managerId 는 필수값입니다")
-    private String managerId;
+    @NotEmpty(message = "managerToken 는 필수값입니다")
+    private String managerToken;
 
     @NotEmpty(message = "managerPw 는 필수값입니다")
     private String managerPw;
+  }
+
+  @Getter
+  @Setter
+  @ToString
+  public static class TokenResponse {
+    private String managerToken;
   }
 }

@@ -1,44 +1,56 @@
 package kr.ziz.ecommercemall.domain.manager;
 
+import kr.ziz.ecommercemall.common.exception.EmailValidationException;
+import kr.ziz.ecommercemall.common.exception.PasswordValidationException;
 import kr.ziz.ecommercemall.domain.manager.fixture.ManagerFixture;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static kr.ziz.ecommercemall.common.response.ErrorCode.MANAGER_EMAIL_INVALIDATION;
+import static kr.ziz.ecommercemall.common.response.ErrorCode.PASSWORD_INVALIDATION;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class ManagerTest {
-
-  @Test
-  public void length_less_than_12() {
-    Exception exception = assertThrows(RuntimeException.class,
-            () -> ManagerFixture.createManager("12345678901"));
-
-    String expectedMessage = "길이 12자 이상";
-
-    assertTrue(exception.getMessage().contains(expectedMessage));
-  }
 
   @DisplayName("영어 대문자, 영어 소문자, 숫자, 특수문자 중 3종류 이상으로 12자리 이상의 문자열")
   @Test
   public void validation_password() {
-    Exception exception1 = assertThrows(RuntimeException.class,
-            () -> ManagerFixture.createManager("AA3456789012"));
+    // 12자 미만 케이스
+    assertThatThrownBy(() -> ManagerFixture.createManagerWithPassword("12345678901"))
+            .isInstanceOf(PasswordValidationException.class)
+            .hasMessage(PASSWORD_INVALIDATION.getMessage());
 
-    Exception exception2 = assertThrows(RuntimeException.class,
-            () -> ManagerFixture.createManager("aa3456789012"));
+    // 12자 이상이지만 3종류 사용 안한 케이스
+    assertThatThrownBy(() -> ManagerFixture.createManagerWithPassword("AA3456789012"))
+            .isInstanceOf(PasswordValidationException.class)
+            .hasMessage(PASSWORD_INVALIDATION.getMessage());
 
-    Exception exception3 = assertThrows(RuntimeException.class,
-            () -> ManagerFixture.createManager("##3456789012"));
+    assertThatThrownBy(() -> ManagerFixture.createManagerWithPassword("aa3456789012"))
+            .isInstanceOf(PasswordValidationException.class)
+            .hasMessage(PASSWORD_INVALIDATION.getMessage());
 
-    String expectedMessage = "영어 대문자, 영어 소문자, 숫자, 특수문자 중 3종류 이상";
+    assertThatThrownBy(() -> ManagerFixture.createManagerWithPassword("3456789012"))
+            .isInstanceOf(PasswordValidationException.class)
+            .hasMessage(PASSWORD_INVALIDATION.getMessage());
 
-    Manager manager = ManagerFixture.createManager("##AA56789012");
+    // 정상 케이스
+    Manager manager = ManagerFixture.createManagerWithPassword("##AA56789012");
 
-    assertTrue(exception1.getMessage().contains(expectedMessage));
-    assertTrue(exception2.getMessage().contains(expectedMessage));
-    assertTrue(exception3.getMessage().contains(expectedMessage));
-    assertThat(manager.getMemberPw()).isEqualTo("##AA56789012");
+    assertThat(manager.getManagerPw()).isEqualTo("##AA56789012");
+  }
+
+  @DisplayName("운영자의 아이디는 반드시 사내 메일을 사용")
+  @Test
+  public void validation_email() {
+
+    assertThatThrownBy(() -> ManagerFixture.createManagerWithEmail("ottmall@gmail.com"))
+            .isInstanceOf(EmailValidationException.class)
+            .hasMessage(MANAGER_EMAIL_INVALIDATION.getMessage());
+
+    String email = "ottmall@ott-mall.com";
+    Manager manager = ManagerFixture.createManagerWithEmail(email);
+
+    assertThat(manager.getEmail()).isEqualTo(email);
   }
 }

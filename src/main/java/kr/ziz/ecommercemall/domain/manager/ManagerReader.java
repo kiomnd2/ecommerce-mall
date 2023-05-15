@@ -4,7 +4,7 @@ import java.util.Optional;
 
 public interface ManagerReader {
 
-  Optional<Manager> getManager(Long id);
+  Optional<Manager> getManager(String managerToken);
 
-  Optional<Manager> getManager(String managerId);
+  Optional<Manager> getManagerByEmail(String email);
 }

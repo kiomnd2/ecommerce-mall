@@ -1,4 +1,4 @@
-package kr.ziz.ecommercemall.common;
+package kr.ziz.ecommercemall.domain;
 
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;

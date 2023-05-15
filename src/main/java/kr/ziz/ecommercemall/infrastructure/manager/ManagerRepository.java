@@ -7,5 +7,7 @@ import java.util.Optional;
 
 public interface ManagerRepository extends JpaRepository<Manager, Long> {
 
-  Optional<Manager> findByManagerId(String managerId);
+  Optional<Manager> findByManagerToken(String managerToken);
+
+  Optional<Manager> findByEmail(String email);
 }

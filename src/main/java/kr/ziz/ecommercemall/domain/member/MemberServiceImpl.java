@@ -3,8 +3,8 @@ package kr.ziz.ecommercemall.domain.member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+//@Service
 @RequiredArgsConstructor
-@Service
 public class MemberServiceImpl implements MemberService {
     private final MemberStore memberStore;
 
