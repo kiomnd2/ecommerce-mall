@@ -20,7 +20,6 @@ public class MemberApi {
 
     @PostMapping("/logged-in")
     public CommonResponse login(@RequestBody MemberDto.RequestLogin requestLogin) {
-        memberFacade.loginMember(MemberMapper.INSTANCE.of(requestLogin));
         return CommonResponse.success("memberToken");
     }
 
