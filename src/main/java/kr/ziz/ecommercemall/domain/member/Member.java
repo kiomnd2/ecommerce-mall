@@ -53,6 +53,17 @@ public class Member {
         this.status = MemberStatus.NOT_AUTHED; // 미인증 상태
     }
 
+    public void changeMember(MemberCommand.ModifyMember member) {
+        verifyPassword(member.getMemberPw());
+        this.memberNm = member.getMemberNm();
+        this.memberPw = member.getMemberPw();
+        this.phoneNo = member.getPhoneNo();
+    }
+
+    public void deleteMember() {
+        status = MemberStatus.DORMANCY;
+    }
+
     private void verifyPassword(String password) {
         if (!StringUtils.hasLength(password) && password.length() < 12) throw new RuntimeException("길이 12자 이상");
 
@@ -64,13 +75,5 @@ public class Member {
         if( appliedRegExpCnt < 3 ) throw new RuntimeException("영어 대문자, 영어 소문자, 숫자, 특수문자 중 3종류 이상");
     }
 
-    public void changeMember(MemberCommand.ModifyMember member) {
-        this.memberNm = member.getMemberNm();
-        this.memberPw = member.getMemberPw();
-        this.phoneNo = member.getPhoneNo();
-    }
 
-    public void deleteMember() {
-        status = MemberStatus.DORMANCY;
-    }
 }
