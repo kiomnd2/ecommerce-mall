@@ -22,7 +22,6 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String memberToken;
-    private String memberId;
     private String memberNm;
     private String memberPw;
     private String phoneNo;
@@ -37,15 +36,12 @@ public class Member {
     private final String SPECIAL_SYMBOLS_REG_EXP = "((.*)[!@#$%^&*()](.*))";
 
     @Builder
-    public Member(String memberId, String memberNm, String memberPw
-            , String phoneNo, String email) {
-        if (!StringUtils.hasLength(memberId)) throw new RuntimeException("managerId는 필수값입니다.");
+    public Member(String memberNm, String memberPw, String phoneNo, String email) {
         if (!StringUtils.hasLength(memberNm)) throw new RuntimeException("managerNm는 필수값입니다.");
         if (!StringUtils.hasLength(phoneNo)) throw new RuntimeException("phoneNo는 필수값입니다.");
         verifyPassword(memberPw);
 
         this.memberToken = TokenGenerator.randomCharacterWithPrefix(PREFIX);
-        this.memberId = memberId;
         this.memberNm = memberNm;
         this.memberPw = memberPw;
         this.phoneNo = phoneNo;

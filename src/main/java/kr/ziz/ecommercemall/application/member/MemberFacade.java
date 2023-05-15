@@ -22,4 +22,8 @@ public class MemberFacade {
     public void deleteMember(String memberToken) {
         memberService.deleteMember(memberToken);
     }
+
+    public void issueOtp(String memberToken) {
+        memberService.issueOtp(memberToken);
+    }
 }

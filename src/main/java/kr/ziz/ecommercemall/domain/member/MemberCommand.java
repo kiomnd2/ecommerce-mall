@@ -10,7 +10,6 @@ public class MemberCommand {
     @Builder
     @ToString
     public static class RegisterMember {
-        private final String memberId;
         private final String memberNm;
         private final String memberPw;
         private final String phoneNo;
@@ -18,7 +17,6 @@ public class MemberCommand {
 
         public Member toEntity() {
             return Member.builder()
-                    .memberId(memberId)
                     .memberNm(memberNm)
                     .memberPw(memberPw)
                     .phoneNo(phoneNo)
@@ -31,7 +29,7 @@ public class MemberCommand {
     @Builder
     @ToString
     public static class LoginMember {
-        private final String memberId;
+        private final String email;
         private final String memberPw;
     }
 

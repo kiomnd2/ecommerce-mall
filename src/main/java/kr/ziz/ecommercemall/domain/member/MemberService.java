@@ -6,4 +6,6 @@ public interface MemberService {
     MemberInfo modifyMember(String memberToken, MemberCommand.ModifyMember memberCommand);
 
     void deleteMember(String memberToken);
+
+    void issueOtp(String memberToken);
 }

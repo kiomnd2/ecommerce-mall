@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/member")
-public class MemberApi {
+public class MemberApiController {
     private final MemberFacade memberFacade;
 
     @PostMapping("/join")
@@ -33,8 +33,9 @@ public class MemberApi {
         return CommonResponse.success("");
     }
 
-    @GetMapping("/otp/{email}")
-    public CommonResponse issueOtp(@PathVariable("email") String email) {
+    @GetMapping("/otp/{memberToken}")
+    public CommonResponse issueOtp(@PathVariable("memberToken") String memberToken) {
+        memberFacade.issueOtp(memberToken);
         return CommonResponse.success("인증키 발급 되었습니다.");
     }
 
