@@ -7,5 +7,5 @@ public interface MemberService {
 
     void deleteMember(String memberToken);
 
-    void issueOtp(String memberToken);
+    MemberInfo issueOtp(String memberToken);
 }

@@ -1,4 +1,4 @@
-package kr.ziz.ecommercemall.domain.member;
+package kr.ziz.ecommercemall.domain.member.otp;
 
 import jakarta.persistence.*;
 import kr.ziz.ecommercemall.common.util.TokenGenerator;
