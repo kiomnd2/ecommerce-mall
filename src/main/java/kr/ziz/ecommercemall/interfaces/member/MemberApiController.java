@@ -40,7 +40,8 @@ public class MemberApiController {
     }
 
     @PostMapping("/otp")
-    public CommonResponse checkOtp() {
+    public CommonResponse checkOtp(@RequestBody MemberDto.RequestCheckOtp requestCheckOtp) {
+
         return CommonResponse.success("토큰 인증 되었습니다.");
     }
 

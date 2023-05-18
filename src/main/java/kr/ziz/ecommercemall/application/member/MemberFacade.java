@@ -3,6 +3,7 @@ package kr.ziz.ecommercemall.application.member;
 import kr.ziz.ecommercemall.domain.member.MemberCommand;
 import kr.ziz.ecommercemall.domain.member.MemberInfo;
 import kr.ziz.ecommercemall.domain.member.MemberService;
+import kr.ziz.ecommercemall.domain.member.otp.OtpInfo;
 import kr.ziz.ecommercemall.domain.notification.NotificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class MemberFacade {
     }
 
     public void issueOtp(String memberToken) {
-        MemberInfo memberInfo = memberService.issueOtp(memberToken);
-        notificationService.sendEmail(memberInfo.getEmail());
+        OtpInfo otp = memberService.issueOtp(memberToken);
+        notificationService.sendEmail(otp);
     }
 }

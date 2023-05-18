@@ -40,4 +40,12 @@ public class MemberDto {
     public static class RequestDelete {
         private String memberToken;
     }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class RequestCheckOtp() {
+        private String memberToken;
+        private String otp;
+    }
 }

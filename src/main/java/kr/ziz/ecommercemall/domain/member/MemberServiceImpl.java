@@ -1,6 +1,7 @@
 package kr.ziz.ecommercemall.domain.member;
 
 import kr.ziz.ecommercemall.domain.member.otp.Otp;
+import kr.ziz.ecommercemall.domain.member.otp.OtpInfo;
 import kr.ziz.ecommercemall.domain.member.otp.OtpStore;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,8 +35,8 @@ public class MemberServiceImpl implements MemberService {
 
     @Transactional
     @Override
-    public MemberInfo issueOtp(String memberToken) {
-        otpStore.store(Otp.builder().memberToken(memberToken).build());
-        return new MemberInfo(memberReader.getMember(memberToken));
+    public OtpInfo issueOtp(String memberToken) {
+        Otp store = otpStore.store(Otp.builder().memberToken(memberToken).build());
+        return OtpInfo.builder().otp(store).build();
     }
 }

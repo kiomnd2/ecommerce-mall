@@ -11,7 +11,7 @@ public class OtpStoreImpl implements OtpStore {
     private final OtpRepository otpRepository;
 
     @Override
-    public void store(Otp otp) {
-        otpRepository.save(otp);
+    public Otp store(Otp otp) {
+        return otpRepository.save(otp);
     }
 }
