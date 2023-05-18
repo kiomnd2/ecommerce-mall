@@ -1,7 +1,9 @@
 package kr.ziz.ecommercemall.domain.member;
 
+import kr.ziz.ecommercemall.domain.member.otp.Otp;
+import kr.ziz.ecommercemall.domain.member.otp.OtpInfo;
+import kr.ziz.ecommercemall.domain.member.otp.OtpStore;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 //@Service
@@ -9,8 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberServiceImpl implements MemberService {
     private final MemberStore memberStore;
     private final MemberReader memberReader;
+    private final OtpStore otpStore;
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public MemberInfo registerMember(MemberCommand.RegisterMember memberCommand) {
         return new MemberInfo(memberStore.store(memberCommand.toEntity()));
@@ -24,10 +27,16 @@ public class MemberServiceImpl implements MemberService {
         return new MemberInfo(member);
     }
     @Transactional
-
     @Override
     public void deleteMember(String memberToken) {
         Member member = memberReader.getMember(memberToken);
         member.deleteMember();
+    }
+
+    @Transactional
+    @Override
+    public OtpInfo issueOtp(String memberToken) {
+        Otp store = otpStore.store(Otp.builder().memberToken(memberToken).build());
+        return OtpInfo.builder().otp(store).build();
     }
 }
