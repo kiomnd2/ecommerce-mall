@@ -9,6 +9,13 @@ public class MemberDto {
     @Getter
     @Setter
     @ToString
+    public static class RequestToken {
+        private String memberToken;
+    }
+
+    @Getter
+    @Setter
+    @ToString
     public static class RequestJoin {
         private String memberId;
         private String memberNm;
@@ -44,7 +51,7 @@ public class MemberDto {
     @Getter
     @Setter
     @ToString
-    public static class RequestCheckOtp() {
+    public static class RequestCheckOtp {
         private String memberToken;
         private String otp;
     }
