@@ -36,7 +36,7 @@ public class MemberCommand {
     @Getter
     @Builder
     @ToString
-    public static class ModifyMember {
+    public static class UpdateMember {
         private final String memberNm;
         private final String memberPw;
         private final String phoneNo;

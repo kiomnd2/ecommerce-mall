@@ -1,6 +1,8 @@
 package kr.ziz.ecommercemall.domain.member;
 
 import jakarta.persistence.*;
+import kr.ziz.ecommercemall.common.exception.BaseException;
+import kr.ziz.ecommercemall.common.response.ErrorCode;
 import kr.ziz.ecommercemall.common.util.TokenGenerator;
 import lombok.Builder;
 import lombok.Getter;
@@ -49,7 +51,7 @@ public class Member {
         this.status = MemberStatus.NOT_AUTHED; // 미인증 상태
     }
 
-    public void changeMember(MemberCommand.ModifyMember member) {
+    public void changeMember(MemberCommand.UpdateMember member) {
         verifyPassword(member.getMemberPw());
         this.memberNm = member.getMemberNm();
         this.memberPw = member.getMemberPw();
@@ -72,4 +74,7 @@ public class Member {
     }
 
 
+    public void checkStatus() {
+        if (status != MemberStatus.AUTHED) throw new BaseException(ErrorCode.INVALID_USER);
+    }
 }

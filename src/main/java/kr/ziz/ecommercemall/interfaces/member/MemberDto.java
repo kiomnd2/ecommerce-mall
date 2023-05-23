@@ -9,6 +9,17 @@ public class MemberDto {
     @Getter
     @Setter
     @ToString
+    public static class ResponseToken {
+        private String memberToken;
+
+        public ResponseToken(String memberToken) {
+            this.memberToken = memberToken;
+        }
+    }
+
+    @Getter
+    @Setter
+    @ToString
     public static class RequestToken {
         private String memberToken;
     }
@@ -41,12 +52,6 @@ public class MemberDto {
         private String email;
     }
 
-    @Getter
-    @Setter
-    @ToString
-    public static class RequestDelete {
-        private String memberToken;
-    }
 
     @Getter
     @Setter

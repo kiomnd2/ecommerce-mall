@@ -18,7 +18,11 @@ public class MemberFacade {
         return memberService.registerMember(memberCommand);
     }
 
-    public MemberInfo modifyMember(String memberToken, MemberCommand.ModifyMember memberCommand) {
+    public MemberInfo loginMember(MemberCommand.LoginMember loginCommand) {
+        return memberService.login(loginCommand);
+    }
+
+    public MemberInfo modifyMember(String memberToken, MemberCommand.UpdateMember memberCommand) {
         return memberService.modifyMember(memberToken, memberCommand);
     }
 

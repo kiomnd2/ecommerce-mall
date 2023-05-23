@@ -13,6 +13,11 @@ public class MemberServiceImpl implements MemberService {
     private final MemberReader memberReader;
     private final OtpStore otpStore;
 
+    @Override
+    public MemberInfo login(MemberCommand.LoginMember loginCommand) {
+        return new MemberInfo(memberReader.login(loginCommand.getEmail(), loginCommand.getMemberPw()));
+    }
+
     @Transactional(readOnly = true)
     @Override
     public MemberInfo registerMember(MemberCommand.RegisterMember memberCommand) {
@@ -21,7 +26,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Transactional
     @Override
-    public MemberInfo modifyMember(String memberToken, MemberCommand.ModifyMember memberCommand) {
+    public MemberInfo modifyMember(String memberToken, MemberCommand.UpdateMember memberCommand) {
         Member member = memberReader.getMember(memberToken);
         member.changeMember(memberCommand);
         return new MemberInfo(member);
@@ -39,4 +44,6 @@ public class MemberServiceImpl implements MemberService {
         Otp store = otpStore.store(Otp.builder().memberToken(memberToken).build());
         return OtpInfo.builder().otp(store).build();
     }
+
+
 }

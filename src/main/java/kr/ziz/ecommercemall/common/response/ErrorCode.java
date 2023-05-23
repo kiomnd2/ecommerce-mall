@@ -11,6 +11,7 @@ public enum ErrorCode {
     PASSWORD_NOT_MATCH("패스워드가 일지하지 않습니다."),
     MANAGER_EMAIL_INVALIDATION("사내메일 형식만 가능합니다."),
     NOT_EXISTS("존재하지 않은 %s 입니다."),
+    INVALID_USER("인증되지 않은 사용자 입니다."),
     REQUIRED_VALUE("%s(은)는 필수값입니다.");
     
     private final String message;

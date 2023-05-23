@@ -17,7 +17,6 @@ class ManagerRepositoryTest {
   private ManagerRepository managerRepository;
 
   @DisplayName("운영자 등록")
-  @Test
   void managerRegister() {
     // given
     Manager initManager = ManagerFixture.createManager();

@@ -10,4 +10,6 @@ public interface MemberMapper {
 
     MemberCommand.RegisterMember of(MemberDto.RequestJoin join);
     MemberCommand.LoginMember of (MemberDto.RequestLogin login);
+
+    MemberCommand.UpdateMember of (MemberDto.RequestUpdate update);
 }
