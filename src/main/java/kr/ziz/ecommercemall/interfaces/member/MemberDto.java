@@ -28,7 +28,6 @@ public class MemberDto {
     @Setter
     @ToString
     public static class RequestJoin {
-        private String memberId;
         private String memberNm;
         private String memberPw;
         private String cfmMemberPw;
@@ -39,7 +38,7 @@ public class MemberDto {
     @Setter
     @ToString
     public static class RequestLogin {
-        private String memberId;
+        private String email;
         private String memberPw;
     }
 
@@ -49,7 +48,6 @@ public class MemberDto {
     public static class RequestUpdate {
         private String memberToken;
         private String memberPw;
-        private String email;
     }
 
 

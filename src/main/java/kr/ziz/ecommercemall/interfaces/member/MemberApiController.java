@@ -26,7 +26,7 @@ public class MemberApiController {
 
     @PutMapping
     public CommonResponse<MemberDto.ResponseToken> update(@RequestBody MemberDto.RequestUpdate requestUpdate) {
-        MemberInfo memberInfo = memberFacade.modifyMember(requestUpdate.getMemberToken(),
+        MemberInfo memberInfo = memberFacade.updateMember(requestUpdate.getMemberToken(),
                 MemberMapper.INSTANCE.of(requestUpdate));
         return CommonResponse.success(new MemberDto.ResponseToken(memberInfo.getMemberToken()));
     }
@@ -34,7 +34,7 @@ public class MemberApiController {
     @DeleteMapping
     public CommonResponse<String> delete(@RequestBody MemberDto.RequestToken requestDelete) {
         memberFacade.deleteMember(requestDelete.getMemberToken());
-        return CommonResponse.success("수정되었습니다.");
+        return CommonResponse.success("삭제되었습니다.");
     }
 
     @PostMapping("/otp")
@@ -43,7 +43,7 @@ public class MemberApiController {
         return CommonResponse.success("인증키 발급 되었습니다.");
     }
 
-    @PostMapping("/otp")
+    @PostMapping("/otp/check")
     public CommonResponse<String> checkOtp(@RequestBody MemberDto.RequestCheckOtp requestCheckOtp) {
         return CommonResponse.success("토큰 인증 되었습니다.");
     }

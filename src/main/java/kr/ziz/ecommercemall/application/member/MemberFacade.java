@@ -22,7 +22,7 @@ public class MemberFacade {
         return memberService.login(loginCommand);
     }
 
-    public MemberInfo modifyMember(String memberToken, MemberCommand.UpdateMember memberCommand) {
+    public MemberInfo updateMember(String memberToken, MemberCommand.UpdateMember memberCommand) {
         return memberService.modifyMember(memberToken, memberCommand);
     }
 
